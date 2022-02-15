@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: SumitKaushik
+Build-Jdk: 15.0.2
+Implementation-Title: database-demo
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.in28minutes.database
+Implementation-Vendor: Pivotal Software, Inc.
+Implementation-URL: https://spring.io/projects/spring-boot/database-demo
+Created-By: Maven Integration for Eclipse
+
