@@ -1,4 +1,4 @@
-package net.javaguides.jdbc.h2.crud;
+package com.hcl.javajdbcjpa;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

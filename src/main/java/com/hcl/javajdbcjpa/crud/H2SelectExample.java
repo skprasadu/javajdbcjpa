@@ -1,4 +1,4 @@
-package net.javaguides.jdbc.h2.crud;
+package com.hcl.javajdbcjpa.crud;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
