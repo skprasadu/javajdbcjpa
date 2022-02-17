@@ -1,4 +1,4 @@
-package com.hcl.javajdbcjpa;
+package com.hcl.javajdbcjpa.jpa;
 
 import java.util.List;
 
@@ -8,13 +8,11 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import com.hcl.javajdbcjpa.domain.Student;
-
 /**
  * JPA Hello world!
  *
  */
-public class App {
+public class JpaApp {
 
 	public static void main(String[] args) {
 

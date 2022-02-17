@@ -1,4 +1,4 @@
-package com.hcl.javajdbcjpa.userdao;
+package com.hcl.javajdbcjpa.jdbc;
 
 public class User {
 	

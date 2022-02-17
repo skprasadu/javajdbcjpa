@@ -1,4 +1,4 @@
-package com.hcl.javajdbcjpa.domain;
+package com.hcl.javajdbcjpa.jpa;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +12,8 @@ import javax.persistence.Table;
 public class Student {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 //	@GenericGenerator(name = "native", strategy = "native")
 	@Column(name = "ID")
 	private Long studentId;
