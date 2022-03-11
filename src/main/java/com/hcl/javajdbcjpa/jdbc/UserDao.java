@@ -35,19 +35,21 @@ public class UserDao {
 	public UserDao() {
 	}
 
+	//What is DAO -> Database access object
 	public static void main(String[] args) throws SQLException {
 
 		UserDao ud = new UserDao();
 
+		// try with resources
 		try (Connection connection = ud.getConnection()) {
 			ud.createTable(connection);
-			ud.insertUser(connection, new User(1, "name", "k@p.com", "us"));
+			ud.insertUser(connection, new User(1, "Krishna", "k@p.com", "us"));
 			List<User> list = ud.selectAllUsers(connection);
-			System.out.println("user count " + list.size());
-			System.out.println("user name" + list.get(0).getName());
-			ud.updateUser(connection, new User(1, "name1", "k@p.com", "us"));
+			System.out.println("user count: " + list.size());
+			System.out.println("user name: " + list.get(0).getName());
+			ud.updateUser(connection, new User(1, "Krishna P", "k@p.com", "us"));
 			list = ud.selectAllUsers(connection);
-			System.out.println("user name" + list.get(0).getName());
+			System.out.println("user name: " + list.get(0).getName());
 			ud.deleteUser(connection, 1);
 		}
 	}
