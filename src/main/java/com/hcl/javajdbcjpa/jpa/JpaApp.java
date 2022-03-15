@@ -28,7 +28,7 @@ import javax.persistence.Query;
  * What is HQL (Hibernate Query Language) and how it is different from SQL(Structured Query Language)? 
  * HQL (only applicable to java application) operates on Entities and 
  * SQL operates on Tables (syntax are different). HQL/Hibernate is database independent/ vendor independant.
- * HQL underlying generates vendor specific SQL 
+ * HQL underlying generates vendor specific SQL using vendor specific Dialect
  */
 public class JpaApp {
 
@@ -49,6 +49,12 @@ public class JpaApp {
 			student.setLastName("Kausik");
 			student.setContactNo("+1-701-298-2986");
 
+			entityManager.persist(student);
+			
+			student = new Student();
+			student.setFirstName("Krishna");
+			student.setLastName("Prasad");
+			student.setContactNo("+1-408-298-2986");
 			entityManager.persist(student);
 
 			transaction.commit();
