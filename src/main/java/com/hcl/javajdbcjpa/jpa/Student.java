@@ -7,14 +7,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Table(name="Student")
+/*
+ * This POJO is Annotated with @Entity, that means this POJO knows how to persist and read from the database
+ * CRUD operation. We dont need to write any SQL query to store or retrieve information from Database
+ * this is mandatory
+ */
 @Entity(name = "Stu")
-public class Student {
+@Table(name="Student")
+public class Student /* CamelCase */ {
 
+	/*
+	 * studentID is primary key of the database, because it is annotated with @Id annotation
+	 * this is mandatory
+	 */
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@GeneratedValue(strategy = GenerationType.AUTO)//, generator = "native")
-//	@GenericGenerator(name = "native", strategy = "native")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
 	private Long studentId;
 
@@ -24,8 +31,8 @@ public class Student {
 	@Column(name = "LNAME")
 	private String lastName;
 
-	@Column(name = "CONTACT_NO")
-	private String contactNo;
+	@Column(name = "CONTACT_NO") //snake_case
+	private String contactNo; // pascalCase
 
 	public Long getStudentId() {
 		return studentId;

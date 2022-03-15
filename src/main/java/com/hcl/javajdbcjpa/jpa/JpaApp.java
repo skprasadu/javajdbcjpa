@@ -9,8 +9,26 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 /**
- * JPA Hello world!
- *
+ * What is Hibernate? ORM (Object Relational mapping) tool, that allows to Object oriented related 
+ * models to database tables
+ * How it is different from JDBC framework? In JDBC we need to write SQL langage. In Hibernate we need to 
+ * do annotation to query database. In JDBC SQL langauge is written explicitly, where as in Hiberate 
+ * for querying the database, we use HQL which works with Entities instead of directly working with Database
+ * queries
+ * What are the basic methods of Hibernate to store and retrieve information from Database? For storing the 
+ * object in to the database we use persist method 
+ * and for retrieving the objects from database, we use HQL and createQuery/ getResultList
+ * How you convert a POJO to a Hibernate aware object? We use annotation @Entity to mark a POJO as Hibernate 
+ * aware
+ * What is the other most important Annotation of a Hibernate aware object? @Id is another important 
+ * annotation, that indicates the primary key in the database table
+ * How do you map an Entity to a database table? @Table is used to map, database table name to POJO or entity
+ * How do you map the fields to column names? @Column is used to map database column name to POJO property 
+ * or field
+ * What is HQL (Hibernate Query Language) and how it is different from SQL(Structured Query Language)? 
+ * HQL (only applicable to java application) operates on Entities and 
+ * SQL operates on Tables (syntax are different). HQL/Hibernate is database independent/ vendor independant.
+ * HQL underlying generates vendor specific SQL 
  */
 public class JpaApp {
 
@@ -34,7 +52,10 @@ public class JpaApp {
 			entityManager.persist(student);
 
 			transaction.commit();
-
+/*
+ * 'select s from Stu s' looks like SQL, but it is called HQL
+ * Actual SQL statement likes like 'select * from Student'
+ */
 			Query q = entityManager.createQuery("select s from Stu s");
 
 			List<Student> resultList = q.getResultList();
@@ -45,10 +66,16 @@ public class JpaApp {
 
 		} catch (Exception e) {
 			System.out.println(e);
-			transaction.rollback();
+			if(transaction != null) {
+				transaction.rollback();
+			}
 		} finally {
-			entityManager.close();
-			emf.close();
+			if(entityManager != null) {
+				entityManager.close();
+			}
+			if(emf != null) {
+				emf.close();
+			}
 		}
 	}
 }

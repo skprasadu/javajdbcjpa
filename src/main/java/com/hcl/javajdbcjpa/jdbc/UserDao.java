@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -121,10 +122,14 @@ public class UserDao {
 		// using try-with-resources to avoid closing resources (boiler plate code)
 		List<User> users = new ArrayList<>();
 		// Step 1: Establishing a Connection
-		try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS);) {
-			System.out.println(preparedStatement);
+		try (Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, 
+				ResultSet.CONCUR_UPDATABLE);) {
+			System.out.println(statement);
 			// Step 3: Execute the query or update query
-			ResultSet rs = preparedStatement.executeQuery();
+			ResultSet rs = statement.executeQuery(SELECT_ALL_USERS);
+			
+			ResultSetMetaData dm = rs.getMetaData();
+			System.out.println("dm=" + dm);
 
 			// Step 4: Process the ResultSet object.
 			while (rs.next()) {
