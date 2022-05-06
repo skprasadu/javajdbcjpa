@@ -18,14 +18,18 @@ import java.util.List;
  *
  */
 public class UserDao {
-	private String jdbcURL = "jdbc:h2:mem:test";
-	private String jdbcUsername = "su";
-	private String jdbcPassword = "";
+	private static String jdbcURL = "jdbc:h2:mem:test";
+	private static String jdbcUsername = "su";
+	private static String jdbcPassword = "";
 
-	private static final String CREATE_TABLE_SQL = "create table users (" + "  id  int primary key,"
-			+ "  name varchar(20)," + "  email varchar(20)," + "  country varchar(20) ) ";
+	private static final String CREATE_TABLE_SQL = "create table users (" 
+			+ "  id  int primary key,"
+			+ "  name varchar(20)," 
+			+ "  email varchar(20)," 
+			+ "  country varchar(20) ) ";
 
-	private static final String INSERT_USERS_SQL = "INSERT INTO users" + "  (id, name, email, country) VALUES "
+	private static final String INSERT_USERS_SQL = "INSERT INTO users" 
+			+ "  (id, name, email, country) VALUES "
 			+ " (?, ?, ?, ?);";
 
 	private static final String SELECT_USER_BY_ID = "select id,name,email,country from users where id =?";
@@ -42,7 +46,7 @@ public class UserDao {
 		UserDao ud = new UserDao();
 
 		// try with resources
-		try (Connection connection = ud.getConnection()) {
+		try (Connection connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword)) {
 			ud.createTable(connection);
 			ud.insertUser(connection, new User(1, "Krishna", "k@p.com", "us"));
 			List<User> list = ud.selectAllUsers(connection);
@@ -55,18 +59,6 @@ public class UserDao {
 		}
 	}
 
-	protected Connection getConnection() {
-		Connection connection = null;
-		try {
-			// Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return connection;
-	}
-
 	public void createTable(Connection connection) throws SQLException {
 
 		// Step 1: Establishing a Connection
@@ -74,14 +66,13 @@ public class UserDao {
 
 			// Step 3: Execute the query or update query
 			statement.execute(CREATE_TABLE_SQL);
-		} catch (SQLException e) {
-			// print SQL exception information
-			printSQLException(e);
-		}
+		} 
 	}
 
 	public void insertUser(Connection connection, User user) throws SQLException {
 		System.out.println(INSERT_USERS_SQL);
+		
+		//Good way
 		// try-with-resource statement will auto close the connection.
 		try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
 			preparedStatement.setLong(1, user.getId());
@@ -90,9 +81,17 @@ public class UserDao {
 			preparedStatement.setString(4, user.getCountry());
 			System.out.println(preparedStatement);
 			preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			printSQLException(e);
 		}
+		
+		//Bad way
+		/*String sql = "INSERT INTO users" 
+				+ "  (id, name, email, country) VALUES "
+				+ " (" + user.getId() + "," + user.getName() + "," + user.getEmail() 
+				+ "," + user.getCountry() + ");";
+		try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+			System.out.println(preparedStatement);
+			preparedStatement.executeUpdate();
+		}*/
 	}
 
 	public User selectUser(Connection connection, int id) {

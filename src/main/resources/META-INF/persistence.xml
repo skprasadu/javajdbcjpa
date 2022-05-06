@@ -19,7 +19,7 @@
 				value="org.hibernate.dialect.H2Dialect" />
 			<!-- There are 4 value to this, 'create', 'create-drop', 'update', 'validate', 'None' 
 			it controls the DDL (data defn language)-->
-			<property name="hibernate.hbm2ddl.auto" value="validate"/> 
+			<property name="hibernate.hbm2ddl.auto" value="create"/> 
 		</properties>
 	</persistence-unit>
 </persistence>
